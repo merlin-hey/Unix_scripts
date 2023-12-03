@@ -5,7 +5,6 @@ printnames=false
 is_file=false
 was_rename=false
 
-# Функция для отображения справки
 function show_help {
     echo "Формат вызова: ./My_Rename.sh суффикс [-h] [-d] [-v] -- названия файлов"
     echo "  суффикс - суффикс, который следует добавить перед расширением"

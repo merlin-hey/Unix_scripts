@@ -78,49 +78,48 @@ do
     	fi
     	shift
     else
+    	case $1 in
+	-h)
+	    show_help
+	    exit 0
+	    ;;
+	-d)
+	    dry_run=true
+	    shift
+	    ;;
+	-v)
+	    printnames=true
+	    shift
+	    ;;
+	--)
+	    separator=true
+	    shift
+	    ;;
+	-*)
+	if [[ $is_suffix == false ]]
+	then
+  	    suffix="$1"
+  	    is_suffix=true
+  	else
+  	    >&2 echo "Ошибка: Неверная опция: $1"
+  	    show_help
+  	    exit 1
+  	fi
+  	shift
+  	;;
+  	*)
+  	if [[ $is_suffix == false ]]
+  	then
+  	    suffix="$1"
+  	    is_suffix=true
+  	else
+  	    my_rename "$1"
+  	    was_rename=true
+  	fi
+  	shift
+  	;;
 
-	    case $1 in
-		-h)
-		    show_help
-		    exit 0
-		    ;;
-		-d)
-		    dry_run=true
-		    shift
-		    ;;
-		-v)
-		    printnames=true
-		    shift
-		    ;;
-		--)
-		    separator=true
-		    shift
-		    ;;
-		-*)
-		    if [[ $is_suffix == false ]]
-		    then
-  			suffix="$1"
-  			is_suffix=true
-  		    else
-  		    	>&2 echo "Ошибка: Неверная опция: $1"
-		    	show_help
-		    	exit 1
-		    fi
-		    shift
-		    ;;
-		*)
-		    if [[ $is_suffix == false ]]
-		    then
-  			suffix="$1"
-  			is_suffix=true
-  		    else
-  		        my_rename "$1"
-			was_rename=true
-		    fi
-		    shift
-		    ;;
-
-	    esac
+	esac
     fi
 done
 
